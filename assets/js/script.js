@@ -27,7 +27,7 @@ function displayTodayWeather(current_weather) {
     dateTitle.appendTo(weatherTodayEl);
 
     var weatherIcon = current_weather.weather[0].icon;
-    var iconURL = `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
+    var iconURL = `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
     imgLi.attr('src', iconURL);
     imgLi.appendTo(iconListItem);
     iconListItem.appendTo(unOrderedList);
@@ -67,7 +67,7 @@ function displayFiveDayForecast(forecast_weather) {
         dateTitle.appendTo(cardBody);
          
         var weatherIcon = forecast_weather[i].weather[0].icon;
-        var iconURL = `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
+        var iconURL = `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
         imgLi.attr('src', iconURL);
         imgLi.appendTo(iconListItem);
         iconListItem.appendTo(unOrderedList);
@@ -98,7 +98,7 @@ function displayLocationError(){
 }
 
 function getLatLong(location_name) {
-    var locationURL = `http://api.openweathermap.org/geo/1.0/direct?q=${location_name}&limit=${locationResultLimit}&appid=${apiKey}`;
+    var locationURL = `https://api.openweathermap.org/geo/1.0/direct?q=${location_name}&limit=${locationResultLimit}&appid=${apiKey}`;
     fetch(locationURL)
         .then(function(response){
             if (response.status===200){
