@@ -1,6 +1,18 @@
-*{
-}
+
 
 #heading {
     text-align: center;
 }
+
+.card {
+    background-image: url('../images/200.webp');
+    background-size: cover;
+    color:rgb(10, 53, 75);
+    margin-top: 20px;
+}
+
+.list-group-item {
+    background-color: #00000000;
+    border: none;
+}
+
