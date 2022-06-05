@@ -4,8 +4,10 @@ var forecastRowEl = fiveDayForecastEl.find('.row');
 var searchButtonEl =$('#searchBtn');
 var inputSearchEl = $('#searchBar');
 var unOrderedListEl = $('.list-group');
+var cityBtnEl = $('#city-display');
 const apiKey = 'a828aef6c0d6398ff3644dc49d97700f';
 var locationResultLimit = 5;
+var cityHistory = JSON.parse(localStorage.getItem('city-history') || '[]');
 
 function displayTodayWeather(current_weather) {
     console.log(current_weather);
@@ -19,6 +21,7 @@ function displayTodayWeather(current_weather) {
     var tempLitsItem = $('<li>').addClass('list-group-item');
     var windListItem = $('<li>').addClass('list-group-item');
     var humidityListItem = $('<li>').addClass('list-group-item');
+    var uvIndexItem = $('<li>').addClass('list-group-item');
 
     dateTitle.text(unixTimeToString(current_weather.dt));
     dateTitle.appendTo(weatherTodayEl);
@@ -38,6 +41,9 @@ function displayTodayWeather(current_weather) {
     humidityListItem.text('Humidity: '+current_weather.humidity);
     humidityListItem.appendTo(unOrderedList);
 
+    uvIndexItem.text('UV Index : '+Math.round(current_weather.uvi));
+    uvIndexItem.appendTo(unOrderedList);
+
     unOrderedList.appendTo(col);
     cardBody.appendTo(card);
     col.appendTo(weatherTodayEl);
@@ -55,6 +61,7 @@ function displayFiveDayForecast(forecast_weather) {
         var tempLitsItem = $('<li>').addClass('list-group-item');
         var windListItem = $('<li>').addClass('list-group-item');
         var humidityListItem = $('<li>').addClass('list-group-item');
+        var uvIndexItem = $('<li>').addClass('list-group-item');
         
         dateTitle.text(unixTimeToString(forecast_weather[i].dt));
         dateTitle.appendTo(cardBody);
@@ -73,6 +80,9 @@ function displayFiveDayForecast(forecast_weather) {
 
         humidityListItem.text('Humidity: '+forecast_weather[i].humidity);
         humidityListItem.appendTo(unOrderedList);
+
+        uvIndexItem.text('UV Index: '+Math.round(forecast_weather[i].uvi));
+        uvIndexItem.appendTo(unOrderedList);
 
         unOrderedList.appendTo(cardBody);
         
@@ -135,17 +145,31 @@ function clearEntries() {
     weatherTodayEl.empty();
 }
 
-getLatLong('canada');
+
 
 function saveCityToHistory(city) {
-    var cities = JSON.parse(localStorage.getItem('cities'));
-    console.log(cities);
-
-    if(cities === null) {
-        cities= Array();
-    }
-    cities.push(city);
-    localStorage.setItem('cities',JSON.stringify(cities));
+    cityHistory = cityHistory.filter(function(value){ 
+        return value !== city;
+    });
+    cityHistory.push(city);
+    localStorage.setItem('city-history', JSON.stringify(cityHistory));
+    displayCities();
 }
 
+function displayCities() {
+    cityBtnEl.empty();
+    for(i = cityHistory.length - 1; i >= Math.max(0, cityHistory.length - 10); i--) {
+        var cityBtn = $('<button>').addClass('btn-outline-success').addClass('btn').addClass('mx-2');
+        cityBtn.text(cityHistory[i]);
+        cityBtn.on('click', onHistorySelect);
+        cityBtn.appendTo(cityBtnEl);
+    }
+}
 
+function onHistorySelect(event) {
+    clearEntries();
+    var searchInput = $(event.target).text();
+    getLatLong(searchInput);
+}
+
+displayCities();
