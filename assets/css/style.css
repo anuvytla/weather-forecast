@@ -4,11 +4,15 @@
     text-align: center;
 }
 
+#todays-report {
+    padding-top: 25px;
+    background-color: #4f7e19ec;
+}
+
 .card {
-    background-image: url('../images/200.webp');
-    background-size: cover;
-    color:rgb(10, 53, 75);
     margin-top: 20px;
+    background-color: #3b137cd4;
+    color: white;
 }
 
 .list-group-item {
