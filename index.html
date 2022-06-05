@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Bootstrap library-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Weather Forecast</title>
@@ -20,20 +21,25 @@
               </form>
             </div>
         </nav>
+        <!--Search history section-->
         <section class="container-fluid">
             <div class="row justify-content-end" id="city-display">
             </div>
         </section>
+        <!--Current and today's weather-->
         <section id="todays-report" class="container-fluid pt-10">
         </section>
-        <section id="5day-forecast" class="container-fluid">
-            <div class="row justify-content-center">
+        <!--5 day forecast-->
+        <section class="container-fluid">
+            <div id="5day-forecast" class="row justify-content-center">
             </div>
         </section>
     </main>
-
+    <!-- moment.js library for formatting date/time-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <!--jQuery library-->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!--JS for App functionality-->
     <script src="./assets/js/script.js"></script>
     
 </body>
